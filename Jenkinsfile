@@ -17,10 +17,13 @@ pipeline{
         }
         stage('upload artifcat to nexus'){
             steps{
-                nexusArtifactUploader artifacts: [
+                script{
+                    def mavenPom = readMavenPom file='pom'
+                    nexusArtifactUploader artifacts: [
                     [
                         artifactId: 'sample-app', 
-                        classifier: '', file: 'target/simple-app-1.0.0-RELESE.war', 
+                        classifier: '', 
+                        file: "target/simple-app-${mavenPom.version}.war", 
                         type: 'war'
                     ]
                 ], 
@@ -30,7 +33,8 @@ pipeline{
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: 'sampleapp-release', 
-                version: '1.0.0'
+                version: "${mavenPom.version}"
+                
             }
         }
     }
