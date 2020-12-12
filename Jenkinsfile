@@ -20,7 +20,7 @@ pipeline{
                 nexusArtifactUploader artifacts: [
                     [
                         artifactId: 'sample-app', 
-                        classifier: '', file: 'target/simple-app-1.0.0.war', 
+                        classifier: '', file: 'target/simple-app-1.0.0-RELESE.war', 
                         type: 'war'
                     ]
                 ], 
