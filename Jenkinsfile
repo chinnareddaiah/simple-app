@@ -15,5 +15,23 @@ pipeline{
         
         }
         }
+        stage('upload artifcat to nexus'){
+            steps{
+                nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'sample-app', 
+                        classifier: '', file: 'target/simple-app-1.0.0.war', 
+                        type: 'war'
+                    ]
+                ], 
+                credentialsId: 'nexus3', 
+                groupId: 'in.javahome', 
+                nexusUrl: '172.31.8.187', 
+                nexusVersion: 'nexus3', 
+                protocol: 'http', 
+                repository: 'sampleapp-release', 
+                version: '1.0.0'
+            }
+        }
     }
 }
